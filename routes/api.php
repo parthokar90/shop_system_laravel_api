@@ -25,3 +25,9 @@ use App\Http\Controllers\user\DashboardController;
 */
 Route::post('/login',[AuthController::class,'login']);
 Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware('auth:sanctum');
+
+/*
+|--------------------------------------------------------------------------
+| Login and dashboard route
+|--------------------------------------------------------------------------
+*/
