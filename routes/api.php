@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\user\AuthController;
 use App\Http\Controllers\user\DashboardController;
+use App\Http\Controllers\front\BrandController;
+use App\Http\Controllers\front\CartController;
 
 
 /*
@@ -23,11 +25,22 @@ use App\Http\Controllers\user\DashboardController;
 | Login and dashboard route
 |--------------------------------------------------------------------------
 */
+Route::post('/register',[AuthController::class,'registration']);
 Route::post('/login',[AuthController::class,'login']);
 Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware('auth:sanctum');
 
+
 /*
 |--------------------------------------------------------------------------
-| Login and dashboard route
+| Product brand route
 |--------------------------------------------------------------------------
 */
+Route::get('/brand/list',[BrandController::class,'index']);
+Route::get('/brand/product/{id}',[BrandController::class,'brandProduct']);
+
+/*
+|--------------------------------------------------------------------------
+| Product carts route
+|--------------------------------------------------------------------------
+*/
+Route::resource('/carts',CartController::class)->middleware('auth:sanctum');
