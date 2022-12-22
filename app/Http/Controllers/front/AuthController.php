@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\user;
+namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegistrationValidationRequest;
+use App\Http\Requests\LoginValidationRequest;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -17,24 +19,9 @@ class AuthController extends Controller
      * @param Request $request
      * @return User
      */
-    public function registration(Request $request)
+    public function registration(RegistrationValidationRequest $request)
     {
         try {
-            $validateUser = Validator::make($request->all(), 
-            [
-                'name' => 'required',
-                'email' => 'required|email|unique:users',
-                'password' => 'required|min:8'
-            ]);
-
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
-
             User::create([
                 'name' => $request->name,
                 'email' =>$request->email,
@@ -64,23 +51,10 @@ class AuthController extends Controller
      * @param Request $request
      * @return User
      */
-    public function login(Request $request)
+    public function login(LoginValidationRequest $request)
     {
         try {
-            $validateUser = Validator::make($request->all(), 
-            [
-                'email' => 'required|email',
-                'password' => 'required'
-            ]);
-
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
-
+            
             if(!Auth::attempt($request->only(['email', 'password']))){
                 return response()->json([
                     'status' => false,

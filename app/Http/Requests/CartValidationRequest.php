@@ -8,15 +8,13 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 use Illuminate\Contracts\Validation\Validator;
 
-class RegistrationValidationRequest extends FormRequest
+class CartValidationRequest extends FormRequest
 {
-   
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users',
-            'name' => 'required|string|max:50',
-            'password' => 'required|min:8'
+            'product_id' => 'required',
+            'quantity' => 'required|min:1',
         ];
 
     }
@@ -40,10 +38,8 @@ class RegistrationValidationRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Email is required!',
-            'name.required' => 'Name is required!',
-            'password.required' => 'Password is required!'
+            'product_id.required' => 'Product is required!',
+            'quantity.required' => 'Quantity is required!'
         ];
     }
-
 }

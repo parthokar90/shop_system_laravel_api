@@ -2,10 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\user\AuthController;
+use App\Http\Controllers\front\AuthController;
 use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\front\BrandController;
 use App\Http\Controllers\front\CartController;
+use App\Http\Controllers\front\CategoryController;
 
 
 /*
@@ -27,6 +28,13 @@ use App\Http\Controllers\front\CartController;
 */
 Route::post('/register',[AuthController::class,'registration']);
 Route::post('/login',[AuthController::class,'login']);
+
+
+/*
+|--------------------------------------------------------------------------
+| Profile and dashboard route
+|--------------------------------------------------------------------------
+*/
 Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware('auth:sanctum');
 
 
@@ -38,9 +46,19 @@ Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware('a
 Route::get('/brand/list',[BrandController::class,'index']);
 Route::get('/brand/product/{id}',[BrandController::class,'brandProduct']);
 
+
 /*
 |--------------------------------------------------------------------------
 | Product carts route
 |--------------------------------------------------------------------------
 */
 Route::resource('/carts',CartController::class)->middleware('auth:sanctum');
+
+
+/*
+|--------------------------------------------------------------------------
+| Product category route
+|--------------------------------------------------------------------------
+*/
+Route::get('/category/list',[CategoryController::class,'index']);
+Route::get('/category/product/{id}',[CategoryController::class,'categoryProduct']);

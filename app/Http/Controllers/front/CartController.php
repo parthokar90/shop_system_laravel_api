@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
-use App\Models\admin\Cart;
-use App\Models\admin\Product;
-use Illuminate\Support\Facades\Validator;
+
+use App\Http\Requests\CartValidationRequest;
+
+use App\Http\Traits\CartTrait;
+
 
 class CartController extends Controller
 {
+
+    use CartTrait;
     /**
      * Display a listing of the resource.
      *
@@ -17,17 +22,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'status' => 200,
+            'message' => 'Data Found',
+            'data' => $this->cartItem(),
+        ]);
     }
 
     /**
@@ -36,78 +35,11 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CartValidationRequest $request)
     {
-        try {
-            $validateUser = Validator::make($request->all(), 
-            [
-                'user_id' => 'required',
-                'product_id' => 'required',
-                'quantity' => 'required|min:1',
-                'price' => 'required',
-                'sub_total' => 'required'
-            ]);
-
-            if($validateUser->fails()){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
-
-            $product = Product::where('id',$request->product_id)->select('id','sale_price')->first();
-
-            if(!isset($product)){
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Unknown product selection',
-                ], 401);
-            }
-
-            Cart::create([
-                'user_id' => auth()->user()->id,
-                'product_id' =>$request->product_id,
-                'quantity' =>$request->quantity,
-                'price' => $product->sale_price,
-                'sub_total' => $product->sale_price*$request->quantity,
-            ]);
-
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Item added to cart successfully',
-            ], 200);
-
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
+        return $this->cartStore($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -116,9 +48,9 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CartValidationRequest $request, $id)
     {
-        //
+        return $this->cartUpdate($request,$id);
     }
 
     /**
@@ -129,6 +61,10 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->cartDelete($id);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Item has been deleted',
+        ]);
     }
 }

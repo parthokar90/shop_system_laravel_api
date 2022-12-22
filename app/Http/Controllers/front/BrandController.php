@@ -25,7 +25,6 @@ class BrandController extends Controller
         
          return response()->json([
                 'status' => 200,
-                'message' => 'Data Found',
                 'data' => $this->brandList(),
           ]);
     }
