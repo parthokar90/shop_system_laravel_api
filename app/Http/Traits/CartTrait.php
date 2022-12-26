@@ -63,6 +63,13 @@ trait CartTrait{
 
             $cartData =  Cart::find($id);
 
+            if(!isset($cartData)){
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Unknown cart id',
+                ], 401);
+            }
+
             $product = Product::where('id',$cartData->product_id)->select('id','sale_price')->first();
 
             if(!isset($product)){
@@ -85,7 +92,7 @@ trait CartTrait{
 
             return response()->json([
                 'status' => true,
-                'message' => 'Item added to cart successfully',
+                'message' => 'Item updated to cart successfully',
             ], 200);
 
         } catch (\Throwable $th) {

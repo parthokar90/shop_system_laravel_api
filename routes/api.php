@@ -7,6 +7,8 @@ use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\front\BrandController;
 use App\Http\Controllers\front\CartController;
 use App\Http\Controllers\front\CategoryController;
+use App\Http\Controllers\front\CouponController;
+use App\Http\Controllers\front\OrderController;
 
 
 /*
@@ -62,3 +64,20 @@ Route::resource('/carts',CartController::class)->middleware('auth:sanctum');
 */
 Route::get('/category/list',[CategoryController::class,'index']);
 Route::get('/category/product/{id}',[CategoryController::class,'categoryProduct']);
+
+
+/*
+|--------------------------------------------------------------------------
+| Product coupon route
+|--------------------------------------------------------------------------
+*/
+Route::post('/coupon/request',[CouponController::class,'coupon'])->middleware('auth:sanctum');
+
+
+/*
+|--------------------------------------------------------------------------
+| Customer order route
+|--------------------------------------------------------------------------
+*/
+Route::get('/customer/order/list',[OrderController::class,'order'])->middleware('auth:sanctum');
+

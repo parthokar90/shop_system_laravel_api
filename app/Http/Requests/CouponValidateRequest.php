@@ -8,12 +8,12 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 use Illuminate\Contracts\Validation\Validator;
 
-class CartValidationRequest extends FormRequest
+class CouponValidateRequest extends FormRequest
 {
     public function rules()
     {
         return [
-            'quantity' => 'required|min:1',
+            'coupon' => 'required',
         ];
 
     }
@@ -37,7 +37,7 @@ class CartValidationRequest extends FormRequest
     public function messages()
     {
         return [
-            'quantity.required' => 'Quantity is required!'
+            'coupon.required' => 'Coupon is required!'
         ];
     }
 }
