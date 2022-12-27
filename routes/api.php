@@ -9,6 +9,7 @@ use App\Http\Controllers\front\CartController;
 use App\Http\Controllers\front\CategoryController;
 use App\Http\Controllers\front\CouponController;
 use App\Http\Controllers\front\OrderController;
+use App\Http\Controllers\front\ProfileController;
 
 
 /*
@@ -74,10 +75,22 @@ Route::get('/category/product/{id}',[CategoryController::class,'categoryProduct'
 Route::post('/coupon/request',[CouponController::class,'coupon'])->middleware('auth:sanctum');
 
 
+
+/*
+|--------------------------------------------------------------------------
+| Customer profile route
+|--------------------------------------------------------------------------
+*/
+Route::resource('/profile',ProfileController::class)->middleware('auth:sanctum');
+
+
 /*
 |--------------------------------------------------------------------------
 | Customer order route
 |--------------------------------------------------------------------------
 */
 Route::get('/customer/order/list',[OrderController::class,'order'])->middleware('auth:sanctum');
+Route::get('/customer/order/details/{id}',[OrderController::class,'orderDetails'])->middleware('auth:sanctum');
+Route::get('/customer/order/status/change/{id}/{status}',[OrderController::class,'orderStatusChange'])->middleware('auth:sanctum');
+Route::post('/customer/order/track',[OrderController::class,'orderTrack'])->middleware('auth:sanctum');
 

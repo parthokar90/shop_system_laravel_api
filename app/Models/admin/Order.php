@@ -15,6 +15,8 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['pivot'];
+
     public function orderItem(){
         return $this->hasMany(OrderItem::class);
     }

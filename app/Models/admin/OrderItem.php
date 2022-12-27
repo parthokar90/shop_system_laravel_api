@@ -10,4 +10,6 @@ class OrderItem extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['pivot'];
+
 }

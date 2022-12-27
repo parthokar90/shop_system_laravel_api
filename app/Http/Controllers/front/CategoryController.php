@@ -15,6 +15,13 @@ class CategoryController extends Controller
 
     use CategoryTrait;
 
+    /**
+     * Show  the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
     public function index(){
         return response()->json([
             'status' => 200,
@@ -22,8 +29,8 @@ class CategoryController extends Controller
         ]);
     }
 
-        /**
-     * Show the form for editing the specified resource.
+    /**
+     * Show the category wise product specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
