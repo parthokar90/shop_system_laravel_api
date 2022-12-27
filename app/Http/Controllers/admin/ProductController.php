@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\http\Traits\ProductTrait;
-use App\Models\admin\Product;
+
 
 class ProductController extends Controller
 {
