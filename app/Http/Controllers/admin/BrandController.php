@@ -23,10 +23,7 @@ class BrandController extends Controller
     public function index()
     {
         
-         return response()->json([
-                'status' => 200,
-                'data' => $this->brandList(),
-          ]);
+        return $this->brandList();
     }
 
     /**

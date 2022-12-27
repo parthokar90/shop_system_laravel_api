@@ -22,11 +22,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'status' => 200,
-            'message' => 'Data Found',
-            'data' => $this->cartItem(),
-        ]);
+        return $this->cartItem();
     }
 
     /**
@@ -61,10 +57,8 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        $this->cartDelete($id);
-        return response()->json([
-            'status' => 200,
-            'message' => 'Item has been deleted',
-        ]);
+        
+       return $this->cartDelete($id);
+       
     }
 }

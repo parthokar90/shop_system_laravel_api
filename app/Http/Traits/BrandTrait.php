@@ -14,7 +14,12 @@ trait BrandTrait {
      */
     public function brandList()
     {
-        return Brand::where('status',1)->get();
+        $data = Brand::where('status',1)->get();
+
+        return response()->json([
+            'status' => 200,
+            'data' => $data,
+        ]);
     }
 
 

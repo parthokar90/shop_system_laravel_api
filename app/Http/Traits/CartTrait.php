@@ -15,7 +15,13 @@ use Carbon\Carbon;
 trait CartTrait{
 
     public function cartItem(){
-       return Cart::with('product')->where('user_id',auth()->user()->id)->get();
+
+       $data = Cart::with('product')->where('user_id',auth()->user()->id)->get();
+       return response()->json([
+        'status' => 200,
+        'data' => $data,
+      ]);
+
     }
 
     public function cartStore($request){
@@ -91,7 +97,7 @@ trait CartTrait{
 
 
             return response()->json([
-                'status' => true,
+                'status' => 200,
                 'message' => 'Item updated to cart successfully',
             ], 200);
 
@@ -105,12 +111,12 @@ trait CartTrait{
 
     public function cartDelete($id){
 
-        return Cart::find($id)->delete();
-    }
+        Cart::find($id)->delete();
 
-    public function cartTotal($id){
-
-      
+        return response()->json([
+            'status' => 200,
+            'message' => 'Item has been deleted',
+        ]);
     }
 
 
