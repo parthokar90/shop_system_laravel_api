@@ -4,12 +4,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\front\AuthController;
 use App\Http\Controllers\user\DashboardController;
-use App\Http\Controllers\front\BrandController;
+use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\front\CartController;
-use App\Http\Controllers\front\CategoryController;
-use App\Http\Controllers\front\CouponController;
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\front\OrderController;
 use App\Http\Controllers\front\ProfileController;
+use App\Http\Controllers\admin\ProductController;
 
 
 /*
@@ -48,6 +49,16 @@ Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware('a
 */
 Route::get('/brand/list',[BrandController::class,'index']);
 Route::get('/brand/product/{id}',[BrandController::class,'brandProduct']);
+
+
+/*
+|--------------------------------------------------------------------------
+| Product  route
+|--------------------------------------------------------------------------
+*/
+Route::resource('/product',ProductController::class);
+// Route::get('/customer/product',[ProductController::class,'index']);
+
 
 
 /*
@@ -93,4 +104,7 @@ Route::get('/customer/order/list',[OrderController::class,'order'])->middleware(
 Route::get('/customer/order/details/{id}',[OrderController::class,'orderDetails'])->middleware('auth:sanctum');
 Route::get('/customer/order/status/change/{id}/{status}',[OrderController::class,'orderStatusChange'])->middleware('auth:sanctum');
 Route::post('/customer/order/track',[OrderController::class,'orderTrack'])->middleware('auth:sanctum');
+
+
+
 
