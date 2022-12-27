@@ -25,10 +25,7 @@ class ProductController extends Controller
     public function index()
     {
         
-       return response()->json([
-        'status'=>200,
-        'data'=>$this->productList(),
-       ]);
+       return $this->productList();
 
     }
 
@@ -62,10 +59,7 @@ class ProductController extends Controller
     public function show($id)
     {
 
-        return response()->json([
-            'status'=>200,
-            'data'=>$this->productDetails($id),
-        ]);
+        return $this->productDetails($id);
     
     }
 

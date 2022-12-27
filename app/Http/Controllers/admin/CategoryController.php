@@ -8,12 +8,17 @@ use Illuminate\Http\Request;
 
 use App\http\Traits\CategoryTrait;
 
-use App\Models\admin\Product;
+
 
 class CategoryController extends Controller
 {
 
     use CategoryTrait;
+
+    public function __construct()
+    {
+       $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update','delete']]);
+    }
 
     /**
      * Show  the specified resource.
@@ -23,10 +28,7 @@ class CategoryController extends Controller
      */
 
     public function index(){
-        return response()->json([
-            'status' => 200,
-            'data' => $this->categoryList(),
-        ]);
+      return $this->categoryList();
     }
 
     /**
@@ -38,12 +40,7 @@ class CategoryController extends Controller
     public function categoryProduct($id)
     {
 
-        $data = Product::where('category_id',$id)->select('id','product_name','product_slug','image','regular_price','sale_price')->get();
-
-        return response()->json([
-            'status' => 200,
-            'data' => $data,
-        ]);
-
+        return $this->categoryProductData($id);
+       
     }
 }
