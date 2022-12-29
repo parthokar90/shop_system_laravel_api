@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\admin\Cart;
+use App\Models\front\Cart;
 
 use App\Models\admin\Product;
 

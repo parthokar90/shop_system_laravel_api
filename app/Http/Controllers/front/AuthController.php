@@ -55,7 +55,7 @@ class AuthController extends Controller
     {
         try {
             
-            if (!Auth::attempt(['email' => $request->email, 'password' => $request->password, 'role' => 2])){
+            if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])){
                 return response()->json([
                     'status' => false,
                     'message' => 'Email & Password does not match with our record.',

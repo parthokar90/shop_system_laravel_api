@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\admin\Order;
 
 use App\Http\Requests\OrderTrackValidateRequest;
+use App\Http\Requests\CheckoutValidateRequest;
+
+
 
 class OrderController extends Controller
 {
@@ -98,6 +101,18 @@ class OrderController extends Controller
             'data' => $data,
         ]);
     }
+
+
+      /**
+     * track order invoice wise.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+     public function checkOut(CheckoutValidateRequest $request){
+          
+     }
+
 
 
 }

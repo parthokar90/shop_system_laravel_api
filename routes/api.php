@@ -6,11 +6,13 @@ use App\Http\Controllers\front\AuthController;
 use App\Http\Controllers\user\DashboardController;
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\front\CartController;
+use App\Http\Controllers\front\WishlistController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CouponController;
 use App\Http\Controllers\front\OrderController;
 use App\Http\Controllers\front\ProfileController;
 use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\admin\BlogController;
 
 
 /*
@@ -71,6 +73,15 @@ Route::resource('/carts',CartController::class)->middleware('auth:sanctum');
 
 /*
 |--------------------------------------------------------------------------
+| Product wishlist route
+|--------------------------------------------------------------------------
+*/
+Route::get('/wishlist',[WishlistController::class,'index'])->middleware('auth:sanctum');
+Route::get('/wishlist/add/{id}',[WishlistController::class,'addWishlist'])->middleware('auth:sanctum');
+
+
+/*
+|--------------------------------------------------------------------------
 | Product category route
 |--------------------------------------------------------------------------
 */
@@ -104,6 +115,14 @@ Route::get('/customer/order/list',[OrderController::class,'order'])->middleware(
 Route::get('/customer/order/details/{id}',[OrderController::class,'orderDetails'])->middleware('auth:sanctum');
 Route::get('/customer/order/status/change/{id}/{status}',[OrderController::class,'orderStatusChange'])->middleware('auth:sanctum');
 Route::post('/customer/order/track',[OrderController::class,'orderTrack'])->middleware('auth:sanctum');
+
+
+/*
+|--------------------------------------------------------------------------
+| Customer blog route
+|--------------------------------------------------------------------------
+*/
+Route::resource('/blog',BlogController::class);
 
 
 

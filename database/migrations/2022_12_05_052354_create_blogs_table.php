@@ -20,7 +20,7 @@ class CreateBlogsTable extends Migration
             $table->string('slug',100)->nullable();
             $table->text('post')->nullable();
             $table->string('image',255)->nullable();
-            $table->unsignedBigInteger('category_by');
+            $table->unsignedBigInteger('created_by');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

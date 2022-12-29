@@ -41,6 +41,20 @@ class StatusTableSeeder extends Seeder
                 'created_by'=>0,
                 'status'=>1,
             ],
+
+            [
+                'status_name'=>'Active',
+                'user_found'=>0,
+                'created_by'=>0,
+                'status'=>1,
+            ],
+
+            [
+                'status_name'=>'Inactive',
+                'user_found'=>0,
+                'created_by'=>0,
+                'status'=>1,
+            ],
          ];
 
          foreach($data as $status){

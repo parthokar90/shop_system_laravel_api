@@ -14,6 +14,14 @@ use Carbon\Carbon;
 
 class CouponController extends Controller
 {
+
+
+    public function __construct()
+    {
+       $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'update','delete']]);
+    }
+
+
      /**
      * Store a newly created resource in storage.
      *
